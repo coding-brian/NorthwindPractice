@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Repository;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace NorthwindPractice.Controllers
@@ -19,18 +21,27 @@ namespace NorthwindPractice.Controllers
 
         private IEmployees _repo;
 
+        private MapperConfiguration mapperConfiguration = new MapperConfiguration(
+            cfg => cfg.CreateMap < Employee, EmployeeDTO>().ForMember(x=>x.Photo,y=>y.MapFrom(o=> GetPhotePath(o.Photo))));
+
         public EmployeeController(IEmployees  employees) {
             _repo = employees;
         }
 
         [Route("/employee/{employeeid}")]
         [HttpGet]
-        public Employee GetEmployee(int employeeid) 
+        public EmployeeDTO GetEmployee(int employeeid) 
         {
 
             var result = _repo.GetEmployees(employeeid);
 
-            return result.FirstOrDefault();
+            var a = result.FirstOrDefault();
+
+            var mapper = mapperConfiguration.CreateMapper();
+
+            var aaa = mapper.Map<EmployeeDTO>(a);
+
+            return aaa;
         }
 
         [Route("/employee/city/{city}")]
@@ -58,6 +69,7 @@ namespace NorthwindPractice.Controllers
         [HttpPost]
         public Object InsertEmployee([FromBody] EmployeeDTO body) 
         {
+            
             var result = new Object();
             if (ModelState.IsValid)
             {
@@ -75,7 +87,7 @@ namespace NorthwindPractice.Controllers
                 employee.Country = body.Country;
                 employee.HomePhone = body.HomePhone;
                 employee.Extension = body.Extension;
-                employee.Photo = GetPhoto(body.Photo);
+                employee.Photo = ChangePhoto(body.Photo);
                 employee.Notes = body.Notes;
                 employee.ReportsTo = body.ReportsTo;
                 employee.PhotoPath = body.PhotoPath;
@@ -100,7 +112,7 @@ namespace NorthwindPractice.Controllers
             return result;
         }
 
-        private static byte[] GetPhoto(string filePath)
+        private static byte[] ChangePhoto(string filePath)
         {
             FileStream stream = new FileStream(
                 filePath, FileMode.Open, FileAccess.Read);
@@ -112,6 +124,20 @@ namespace NorthwindPractice.Controllers
             stream.Close();
 
             return photo;
+        }
+
+        private static string GetPhotePath(byte[] bytes) 
+        {
+
+            var imagesrc = "";
+            using (var stream = new MemoryStream(bytes)) 
+            {
+                stream.Write(bytes,78, bytes.Length-78);
+                string imageBase64 = Convert.ToBase64String(stream.ToArray());
+                imagesrc = String.Format("data:image/jpeg;base64,{0}", imageBase64);
+            }
+
+            return imagesrc;
         }
     }
 }

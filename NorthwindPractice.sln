@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{B734E92D-44DD-4EC4-8B32-995C2F9D1992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{B734E92D-44DD-4EC4-8B32-995C2F9D1992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindPractice", "NorthwindPractice\NorthwindPractice.csproj", "{ECF57B0B-3B22-43AC-9930-DBC58E755340}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindPractice", "NorthwindPractice\NorthwindPractice.csproj", "{ECF57B0B-3B22-43AC-9930-DBC58E755340}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{24E128D6-353B-4CD1-9EBD-FBC06DCC6127}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{ECF57B0B-3B22-43AC-9930-DBC58E755340}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECF57B0B-3B22-43AC-9930-DBC58E755340}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECF57B0B-3B22-43AC-9930-DBC58E755340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E128D6-353B-4CD1-9EBD-FBC06DCC6127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E128D6-353B-4CD1-9EBD-FBC06DCC6127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E128D6-353B-4CD1-9EBD-FBC06DCC6127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E128D6-353B-4CD1-9EBD-FBC06DCC6127}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

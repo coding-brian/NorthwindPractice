@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "";
+    var editable = Convert.ToBoolean(ViewBag.isedit)?"":"disabled";
+
+}
+
+<div class="employeetable">
+    <div class="avatar">
+        <div id="image"> <img id="imagesrc" /></div>
+    </div>
+    <div class="info">
+        <div class="name">
+            姓名:<input type="text" style="width:-webkit-fill-available;" id="employeename" @editable />
+        </div>
+        <div class="title">
+            職稱:<input type="text" style="width:-webkit-fill-available;" id="title" @editable />
+        </div>
+        <div class="birthday">
+            生日:<input type="text" style="width:-webkit-fill-available;" id="birthday" @editable />
+        </div>
+        <div class="address">
+            地址:<input type="text" style="width:-webkit-fill-available;" id="address" @editable />
+        </div>
+        <div class="country">
+            國家:<input type="text" style="width:-webkit-fill-available;" id="country" @editable />
+        </div>
+        <div class="note">
+            備註:<textarea id="note" style="width:-webkit-fill-available;" type="text" @editable></textarea>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .employeetable {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+    }
+
+    .employeetable .avatar {
+        margin-right: 10px;
+    }
+
+    .employeetable .info {
+    }
+
+    .employeetable .info .name {
+        margin-bottom: 10px;
+    }
+
+    .employeetable .info .birthday {
+        margin-bottom: 10px;
+    }
+
+    .employeetable .info .country {
+        margin-bottom: 10px;
+    }
+
+    .employeetable .info .title {
+        margin-bottom: 10px;
+    }
+
+    .employeetable .info .address {
+        margin-bottom: 10px;
+    }
+
+    .employeetable .info .note {
+        margin-bottom: 10px;
+    }
+
+</style>
