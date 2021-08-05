@@ -43,7 +43,9 @@ namespace NorthwindPractice
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("https://localhost:44364");
+                    builder.WithOrigins("https://localhost:44364")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod(); 
                 });
             });
         }

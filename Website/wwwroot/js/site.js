@@ -3,9 +3,7 @@
 
 // Write your JavaScript code.
 (function () {
-    
-
-    $('#submit').on('click', function () {
+    $('#searchsubmit').on('click', function () {
         submit();
     });
 
@@ -20,8 +18,9 @@
         var employeedata = getEmployee(employeeid);
         if (employeedata) {
             getEmployeeTableHTML();
-            $('#employeename').val(employeedata.firstName + employeedata.lastName);
-            $('#imagesrc').attr('src', employeedata.photo);
+            $('#employeFirstName').val(employeedata.firstName);
+            $('#employeLastName').val(employeedata.lastName);
+            $('#imagesrc').attr('src','data: image/jpeg;base64,'+ employeedata.photo);
             $('#country').val(employeedata.country);
             $('#birthday').val(timeChange(employeedata.birthDate));
             $('#title').val((employeedata.title));
@@ -67,6 +66,7 @@
                 console.log('err', err)
             }
         });
+
         return result.responseJSON;
     }
 
@@ -79,4 +79,5 @@
 
         return result;
     }
+
 })();

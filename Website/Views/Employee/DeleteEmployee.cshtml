@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout ="";
+}
+
+<div id="deleteemployee">
+    <div>
+        刪除會員:<br />
+        輸入會員ID:<input type="text" id="employeeid" />
+        <input type="button" id="deletesubmit" value="送出">
+        <div id="deletetresult" style="display:none">
+            <p>結果</p>
+            <div id="result">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/delete.js" asp-append-version="true"></script>

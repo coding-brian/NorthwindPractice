@@ -13,7 +13,8 @@
     </div>
     <div class="info">
         <div class="name">
-            姓名:<input type="text" style="width:-webkit-fill-available;" id="employeename" @editable />
+            名子:<input type="text" style="width:-webkit-fill-available;" id="employeFirstName" @editable />
+            姓氏:<input type="text" style="width:-webkit-fill-available;" id="employeLastName" @editable />
         </div>
         <div class="title">
             職稱:<input type="text" style="width:-webkit-fill-available;" id="title" @editable />
@@ -33,9 +34,92 @@
     </div>
 </div>
 
+<script>
+    //class Check {
+    //    constructor(firstname, lastname, title, birthDate, address, country) {
+    //        this.firstname = firstname;
+    //        this.lastname = lastname;
+    //        this.title = title;
+    //        this.birthDate = birthDate;
+    //        this.address = address;
+    //        this.country = country;
+    //        this.warning = {
+    //            name: '',
+    //            title: '',
+    //            birthDate: '',
+    //            address: '',
+    //            country: '',
+    //        }
+    //    }
 
+    //    checkALL() {
 
-<style>
+    //        var checknameresult = this.checkName();
+    //        var checkbirthdayresult = this.checkbitrhday();
+    //        var checktitleresult = this.checktitle();
+    //        var checkAddressresult = this.checkAddress();
+    //        var checkCountryresult = this.checkCountry();
+
+    //        if (checknameresult &&
+    //            checkbirthdayresult &&
+    //            checktitleresult &&
+    //            checkAddressresult &&
+    //            checkCountryresult) {
+    //            return true;
+    //        }
+
+    //        return false;
+    //    }
+
+    //    checkName() {
+    //        if (!this.firstname || this.firstname === undefined || this.firstname.length < 1 ||
+    //            !this.lastname || this.lastname === undefined || this.lastname.length < 1) {
+    //            this.warning.name = '<br>請輸入完整的姓名';
+    //            return false;
+    //        }
+    //        this.warning.name = '';
+    //        return true;
+    //    }
+
+    //    checkbitrhday() {
+    //        if (!this.birthDate || this.birthDate === undefined || this.birthDate.length < 1) {
+    //            this.warning.birthDate = '<br>請輸入生日';
+    //            return false;
+    //        }
+    //        this.warning.birthDate = '';
+    //        return true;
+    //    }
+
+    //    checktitle() {
+    //        if (!this.title || this.title === undefined || this.title.length < 1) {
+    //            this.warning.title = '<br>請輸入姓名';
+    //            return false;
+    //        }
+    //        this.warning.title = '';
+    //        return true;
+    //    }
+
+    //    checkAddress() {
+    //        if (!this.address || !this.address === undefined || this.address.length < 1) {
+    //            this.warning.address = '<br>請輸入地址';
+    //            return false;
+    //        }
+    //        this.warning.address = '';
+    //        return true;
+    //    }
+
+    //    checkCountry() {
+    //        if (!this.country || !this.country === undefined || this.country.length < 1) {
+    //            this.warning.country = '<br>請輸入國家';
+    //            return false;
+    //        }
+    //        this.warning.country = '';
+    //        return true;
+    //    }
+    //}
+</script>
+
+<style >
     .employeetable {
         display: flex;
         flex-direction: row;

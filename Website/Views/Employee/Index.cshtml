@@ -3,15 +3,102 @@
 *@
 @{
 }
+
 <div>
-    查詢會員:
-    <input type="text" id="employee" value="測試"/>
-    <input type="button" id="submit" placeholder="" value="送出" />
+    <p>請問要做甚麼呢</p>
+    <input type="button" class="searchbutton" id="showsearchemployee" value="查詢員工"/>
+    <input type="button" class="updatebutton" id="showupdateemployee" value="編輯員工資訊"/>
+    <input type="button" class="deletebutton" id="showdeleteemployee" value="刪除員工資訊"/>
+    <input type="button" class="inserthbutton" id="showinsertemployee" value="新增員工"/>
 </div>
 
-<div id="employeetable"></div>
 
+<div class="wrapper" id="container">
+
+</div>
+
+
+
+<script>
+
+    function GetSearchEmplyeeHTML() {
+        $.ajax({
+            url: 'https://localhost:44364/Employee/SearchEmployee',
+            async: false,
+            success: function (res) {
+                $('#container').html('');
+                $('#container').append(res);
+            }
+        });
+    }
+
+    function GetUpdateEmployeeHTML() {
+        $.ajax({
+            url: 'https://localhost:44364/Employee/UpdateEmployee',
+            async: false,
+            success: function (res) {
+                $('#container').html('');
+                $('#container').append(res);
+            }
+        });
+    }
+
+    function GetDeleteEmployeeHTML() {
+        $.ajax({
+            url: 'https://localhost:44364/Employee/DeleteEmployee',
+            async: false,
+            success: function (res) {
+                $('#container').html('');
+                $('#container').append(res);
+            }
+        });
+    }
+
+    function GetInsertEmployeeHTML() {
+        $.ajax({
+            url: 'https://localhost:44364/Employee/InsertEmployee',
+            async: false,
+            success: function (res) {
+                $('#container').html('');
+                $('#container').append(res);
+            }
+        });
+    }
+
+    $('#showsearchemployee').on('click', function () {
+        GetSearchEmplyeeHTML();
+    })
+
+    $('#showupdateemployee').on('click', function () {
+        GetUpdateEmployeeHTML();
+    })
+
+    $('#showdeleteemployee').on('click', function () {
+        GetDeleteEmployeeHTML();
+    });
+
+    $('#showinsertemployee').on('click', function () {
+        GetInsertEmployeeHTML();
+    })
+</script>
 
 <style>
+    .wrapper {
+        padding-top: 30px
+    }
 
+    .searchbutton {
+        margin-right: 30px
+    }
+    .updatebutton {
+        margin-right: 30px
+    }
+
+    .deletebutton {
+        margin-right: 30px
+    }
+
+    .inserthbutton {
+        margin-right: 30px
+    }
 </style>

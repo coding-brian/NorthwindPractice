@@ -7,6 +7,7 @@ using Repository.DTO;
 using Repository.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,15 +34,14 @@ namespace NorthwindPractice.Controllers
         public EmployeeDTO GetEmployee(int employeeid) 
         {
 
-            var result = _repo.GetEmployees(employeeid);
+            var employee = _repo.GetEmployees(employeeid).FirstOrDefault();
 
-            var a = result.FirstOrDefault();
 
             var mapper = mapperConfiguration.CreateMapper();
 
-            var aaa = mapper.Map<EmployeeDTO>(a);
+            var result = mapper.Map<EmployeeDTO>(employee);
 
-            return aaa;
+            return result;
         }
 
         [Route("/employee/city/{city}")]
@@ -53,45 +53,42 @@ namespace NorthwindPractice.Controllers
             return result;
         }
 
-        [Route("/employee/{id}/{firstname}")]
+        [Route("/employee/{id}/")]
         [HttpPut]
-        public bool UpdateEmployeeFirstName(int id,string firstname) 
+        public bool UpdateEmployee(int id,[FromBody] UpdateEmployeeDTO employeeDTO) 
         {
             var currentemploy=_repo.GetEmployees(id).FirstOrDefault();
-            currentemploy.FirstName = firstname;
-            
+            currentemploy.FirstName = employeeDTO.FirstName;
+            currentemploy.LastName=employeeDTO.LastName;
+            currentemploy.Title=employeeDTO.Title;
+            currentemploy.Address=employeeDTO.Address;
+            currentemploy.BirthDate=employeeDTO.BirthDate;
+
             var result=_repo.UpdateEmployees(currentemploy);
 
-            return result;
+            return true;
         }
 
         [Route("/employee")]
         [HttpPost]
-        public Object InsertEmployee([FromBody] EmployeeDTO body) 
+        public Object InsertEmployee(InsertEmployeeDTO body) 
         {
             
             var result = new Object();
+            var path = ChangeBase64toPhote(body.Photo);
             if (ModelState.IsValid)
             {
                 var employee = new Employee();
                 employee.FirstName = body.FirstName;
                 employee.LastName = body.LastName;
                 employee.Title = body.Title;
-                employee.TitleOfCourtesy = body.TitleOfCourtesy;
+
                 employee.BirthDate = body.BirthDate;
-                employee.HireDate = body.HireDate;
                 employee.Address = body.Address;
-                employee.City = body.City;
-                employee.Region = body.Region;
-                employee.PostalCode = body.PostalCode;
-                employee.Country = body.Country;
-                employee.HomePhone = body.HomePhone;
-                employee.Extension = body.Extension;
-                employee.Photo = ChangePhoto(body.Photo);
+
+                employee.Photo = ChangePhoto(path);
                 employee.Notes = body.Notes;
-                employee.ReportsTo = body.ReportsTo;
-                employee.PhotoPath = body.PhotoPath;
-                //var employee = JsonConvert.DeserializeObject<Employee>(JsonConvert.SerializeObject(body));
+
 
                 result = _repo.InsertEmployees(employee);
             }
@@ -102,17 +99,16 @@ namespace NorthwindPractice.Controllers
             return result;
         }
 
-
         [Route("/employee/{id}")]
         [HttpDelete]
         public bool DeleteEmployee(int id) 
         {
-            var result=_repo.DeleteEmployees(id);
+            var result = _repo.DeleteEmployees(id);
 
-            return result;
+            return true;
         }
 
-        private static byte[] ChangePhoto(string filePath)
+        private  byte[] ChangePhoto(string filePath)
         {
             FileStream stream = new FileStream(
                 filePath, FileMode.Open, FileAccess.Read);
@@ -132,12 +128,30 @@ namespace NorthwindPractice.Controllers
             var imagesrc = "";
             using (var stream = new MemoryStream(bytes)) 
             {
-                stream.Write(bytes,78, bytes.Length-78);
+                stream.Write(bytes, 0,bytes.Length);
                 string imageBase64 = Convert.ToBase64String(stream.ToArray());
-                imagesrc = String.Format("data:image/jpeg;base64,{0}", imageBase64);
+                imagesrc = imageBase64;
             }
 
             return imagesrc;
+        }
+
+        private string ChangeBase64toPhote(string base64) 
+        {
+            byte[] arr = Convert.FromBase64String(base64);
+            var path = Path.GetFullPath("./Images/Upload_Image.jpeg");
+            using (MemoryStream ms = new MemoryStream(arr)) {
+
+                using (Bitmap bmp = new Bitmap(ms)) {
+                    
+                    bmp.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    ms.Close();
+                }
+            }
+
+            
+            
+            return path;
         }
     }
 }
